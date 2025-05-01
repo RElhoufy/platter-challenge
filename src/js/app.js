@@ -34,7 +34,32 @@ document.addEventListener('DOMContentLoaded', async function () {
     const currentProducts = productGridContainer.querySelectorAll('.product-card').length;
     const remainingProducts = products.slice(currentProducts);
     const remainingProductCards = remainingProducts.map(createProductCard);
+
+    // Store the current height
+    const currentHeight = productGridContainer.scrollHeight;
+
+    // Add the new cards
     productGridContainer.innerHTML += remainingProductCards.join('');
-    showMoreButton.classList.add('hidden');
+
+    // Set initial height and enable transition
+    productGridContainer.style.height = `${currentHeight}px`;
+    productGridContainer.style.transition = 'height 0.5s ease-in-out';
+    productGridContainer.style.overflow = 'hidden';
+
+    // Handle cleanup after animation completes
+    const handleTransitionEnd = () => {
+      productGridContainer.style.height = '';
+      productGridContainer.style.transition = '';
+      productGridContainer.style.overflow = '';
+      showMoreButton.classList.add('hidden');
+      productGridContainer.removeEventListener('transitionend', handleTransitionEnd);
+    };
+
+    productGridContainer.addEventListener('transitionend', handleTransitionEnd);
+
+    // Trigger the animation
+    requestAnimationFrame(() => {
+      productGridContainer.style.height = `${productGridContainer.scrollHeight}px`;
+    });
   });
 });
