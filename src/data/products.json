@@ -9,7 +9,7 @@
       "numberOfReviews": 128,
       "starRating": 4.5,
       "badge": "Best Seller",
-      "secondaryBadge": "Sale 15%"
+      "secondaryBadge": "Save 15%"
     },
     {
       "id": 2,
@@ -31,7 +31,7 @@
       "numberOfReviews": 64,
       "starRating": 4.8,
       "badge": "Best Seller",
-      "secondaryBadge": "Sale 15%"
+      "secondaryBadge": "Save 15%"
     },
     {
       "id": 4,
@@ -52,7 +52,7 @@
       "secondaryImage": "../assets/c-d-x-PDX_a_82obo-unsplash.jpg",
       "numberOfReviews": 87,
       "starRating": 4.7,
-      "badge": "New",
+      "badge": "Best Seller",
       "secondaryBadge": "Sale 20%"
     },
     {
@@ -74,7 +74,7 @@
       "secondaryImage": "../assets/c-d-x-PDX_a_82obo-unsplash.jpg",
       "numberOfReviews": 42,
       "starRating": 4.9,
-      "badge": "New",
+      "badge": "Best Seller",
       "secondaryBadge": "Sale 10%"
     },
     {
@@ -96,8 +96,8 @@
       "secondaryImage": "../assets/c-d-x-PDX_a_82obo-unsplash.jpg",
       "numberOfReviews": 58,
       "starRating": 4.6,
-      "badge": "New",
-      "secondaryBadge": "Sale 15%"
+      "badge": "Best Seller",
+      "secondaryBadge": "Save 15%"
     },
     {
       "id": 10,
