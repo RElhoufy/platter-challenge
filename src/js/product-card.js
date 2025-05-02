@@ -8,7 +8,7 @@ export function createProductCard(product) {
         <img 
           src="${product.mainImage}"
           alt="${product.title}"
-          class="h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-0 md:group-hover:opacity-100"
+          class="h-full w-full object-cover transition-opacity duration-300 md:group-hover:opacity-0 group-hover:opacity-100"
         />
         <img 
           src="${product.secondaryImage}"
