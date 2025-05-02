@@ -46,28 +46,21 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Update grid scroll based on scrollbar position
     function updateGridScroll() {
       const maxThumbPosition = scrollbarTrack.clientWidth - scrollbarThumb.clientWidth;
-
-      // TODO: Look into calculating the visible portion ouutside of this function so it doesn't get recalculated every time the function is called. We really only need to calculate it once and on every window resize
-      // Calculate the visible portion of the product cards in the viewport
-      const productGridRect = productGrid.getBoundingClientRect();
-      const productCardsWrapperRect = productCardsWrapper.getBoundingClientRect();
-      const viewPortWidth = window.innerWidth;
-      const amountVisibleLeft = Math.max(productGridRect.left, productCardsWrapperRect.left);
-      const amountVisibleRight = Math.min(productCardsWrapperRect.right, viewPortWidth);
-      const visibleWidth = Math.max(amountVisibleRight - amountVisibleLeft, 0);
-
+      const totalScrollableWidth = productCardsWrapper.scrollWidth - productGrid.clientWidth;
       const thumbPositionOffsetLeft = parseFloat(scrollbarThumb.style.left) || 0;
       const scrollPercentage = (thumbPositionOffsetLeft / maxThumbPosition) * 100;
 
       if (scrollPercentage >= 100) return;
-      productCardsWrapper.style.left = `-${Math.round((scrollPercentage / 100) * visibleWidth)}px`;
+      productCardsWrapper.style.left = `-${Math.round(
+        (scrollPercentage / 100) * totalScrollableWidth
+      )}px`;
     }
 
     // Detect when user presses down on the scrollbar thumb
     scrollbarThumb.addEventListener('mousedown', e => {
       isDragging = true;
       startX = e.offsetX; // X coordinate of the mouse relative to the scrollbar thumb
-      startScrollLeft = productCardsWrapper.left; // How far the grid is scrolled from the left edge of the container
+      startScrollLeft = parseFloat(productCardsWrapper.style.left) || 0; // How far the grid is scrolled from the left edge of the container
     });
 
     // Detect when user releases their press on the mouse
