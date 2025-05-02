@@ -16,50 +16,107 @@ let productsPromise = (async function fetchProducts() {
 
 document.addEventListener('DOMContentLoaded', async function () {
   const products = await productsPromise;
-  const productGridContainer = document.getElementById('product-cards-container');
+  const productGrid = document.getElementById('product-grid');
+  const productCardsWrapper = document.getElementById('product-cards-container');
   const showMoreButton = document.getElementById('show-more-button');
+  const scrollbarContainer = document.getElementById('scrollbar-container');
+  const isDesktop = window.matchMedia('(min-width: 768px)').matches;
 
   // Show initial products
-  const initialProducts = products.slice(0, 4);
+  const initialProducts = isDesktop ? products : products.slice(0, 4);
   const productCards = initialProducts.map(createProductCard);
-  productGridContainer.innerHTML = productCards.join('');
+  productCardsWrapper.innerHTML = productCards.join('');
 
-  // Show button if there are more products
-  if (products.length > 4) {
+  // Show button if there are more products and we're on mobile
+  if (!isDesktop && products.length > 4) {
     showMoreButton.classList.remove('hidden');
+  } else if (isDesktop && products.length > 4) {
+    scrollbarContainer.classList.remove('md:hidden');
+    scrollbarContainer.classList.add('md:block');
   }
 
-  // Add click event listener
+  // Scrollbar functionality
+  if (isDesktop) {
+    const scrollbarThumb = document.getElementById('scrollbar-thumb');
+    const scrollbarTrack = document.getElementById('scrollbar-track');
+    let isDragging = false;
+    let startX;
+    let startScrollLeft;
+
+    // Update grid scroll based on scrollbar position
+    function updateGridScroll() {
+      const maxThumbPosition = scrollbarTrack.clientWidth - scrollbarThumb.clientWidth;
+
+      // TODO: Look into calculating the visible portion ouutside of this function so it doesn't get recalculated every time the function is called. We really only need to calculate it once and on every window resize
+      // Calculate the visible portion of the product cards in the viewport
+      const productGridRect = productGrid.getBoundingClientRect();
+      const productCardsWrapperRect = productCardsWrapper.getBoundingClientRect();
+      const viewPortWidth = window.innerWidth;
+      const amountVisibleLeft = Math.max(productGridRect.left, productCardsWrapperRect.left);
+      const amountVisibleRight = Math.min(productCardsWrapperRect.right, viewPortWidth);
+      const visibleWidth = Math.max(amountVisibleRight - amountVisibleLeft, 0);
+
+      const thumbPositionOffsetLeft = parseFloat(scrollbarThumb.style.left) || 0;
+      const scrollPercentage = (thumbPositionOffsetLeft / maxThumbPosition) * 100;
+
+      if (scrollPercentage >= 100) return;
+      productCardsWrapper.style.left = `-${Math.round((scrollPercentage / 100) * visibleWidth)}px`;
+    }
+
+    // Detect when user presses down on the scrollbar thumb
+    scrollbarThumb.addEventListener('mousedown', e => {
+      isDragging = true;
+      startX = e.offsetX; // X coordinate of the mouse relative to the scrollbar thumb
+      startScrollLeft = productCardsWrapper.left; // How far the grid is scrolled from the left edge of the container
+    });
+
+    // Detect when user releases their press on the mouse
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Mouse move event for scrollbar thumb
+    document.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      const maxThumbPosition = scrollbarTrack.clientWidth - scrollbarThumb.clientWidth;
+      const x = e.pageX - scrollbarTrack.getBoundingClientRect().left; // Final position of the mouse relative to the left edge of the scrollbar track
+      const thumbPositionOffsetLeft = Math.max(0, Math.min(x - startX, maxThumbPosition));
+      scrollbarThumb.style.left = `${thumbPositionOffsetLeft}px`;
+      updateGridScroll();
+    });
+  }
+
+  // Add click event listener for show more button
   showMoreButton.addEventListener('click', () => {
-    const currentProducts = productGridContainer.querySelectorAll('.product-card').length;
+    const currentProducts = productCardsWrapper.querySelectorAll('.product-card').length;
     const remainingProducts = products.slice(currentProducts);
     const remainingProductCards = remainingProducts.map(createProductCard);
 
     // Store the current height
-    const currentHeight = productGridContainer.scrollHeight;
+    const currentHeight = productCardsWrapper.scrollHeight;
 
     // Add the new cards
-    productGridContainer.innerHTML += remainingProductCards.join('');
+    productCardsWrapper.innerHTML += remainingProductCards.join('');
 
     // Set initial height and enable transition
-    productGridContainer.style.height = `${currentHeight}px`;
-    productGridContainer.style.transition = 'height 0.5s ease-in-out';
-    productGridContainer.style.overflow = 'hidden';
+    productCardsWrapper.style.height = `${currentHeight}px`;
+    productCardsWrapper.style.transition = 'height 0.5s ease-in-out';
+    productCardsWrapper.style.overflow = 'hidden';
 
     // Handle cleanup after animation completes
     const handleTransitionEnd = () => {
-      productGridContainer.style.height = '';
-      productGridContainer.style.transition = '';
-      productGridContainer.style.overflow = '';
+      productCardsWrapper.style.height = '';
+      productCardsWrapper.style.transition = '';
+      productCardsWrapper.style.overflow = '';
       showMoreButton.classList.add('hidden');
-      productGridContainer.removeEventListener('transitionend', handleTransitionEnd);
+      productCardsWrapper.removeEventListener('transitionend', handleTransitionEnd);
     };
 
-    productGridContainer.addEventListener('transitionend', handleTransitionEnd);
+    productCardsWrapper.addEventListener('transitionend', handleTransitionEnd);
 
     // Trigger the animation
     requestAnimationFrame(() => {
-      productGridContainer.style.height = `${productGridContainer.scrollHeight}px`;
+      productCardsWrapper.style.height = `${productCardsWrapper.scrollHeight}px`;
     });
   });
 });
