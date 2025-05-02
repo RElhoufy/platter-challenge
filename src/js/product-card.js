@@ -4,8 +4,17 @@ export function createProductCard(product) {
   return `
     <div class="product-card md:min-w-[355px]">
       <!-- Image Container -->
-      <div class="product-card__image relative aspect-square overflow-hidden rounded-[10px]">
-        <img src="${product.mainImage}" alt="${product.title}" class="h-full w-full object-cover" />
+      <div class="product-card__image relative aspect-square overflow-hidden rounded-[10px] group">
+        <img 
+          src="${product.mainImage}"
+          alt="${product.title}"
+          class="h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-0 md:group-hover:opacity-100"
+        />
+        <img 
+          src="${product.secondaryImage}"
+          alt="${product.title} - Alternative view"
+          class="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 opacity-0 md:group-hover:opacity-100"
+        />
         
         <div class="product-card__badge 
           absolute top-0 left-0 mt-1 md:mt-2 ml-1 md:ml-2
