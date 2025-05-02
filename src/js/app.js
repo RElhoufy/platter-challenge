@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Detect when user presses down on the scrollbar thumb
     scrollbarThumb.addEventListener('mousedown', e => {
       isDragging = true;
+      scrollbarThumb.classList.add('h-[6px]', '-mt-[2px]');
       startX = e.offsetX; // X coordinate of the mouse relative to the scrollbar thumb
       startScrollLeft = parseFloat(productCardsWrapper.style.left) || 0; // How far the grid is scrolled from the left edge of the container
     });
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Detect when user releases their press on the mouse
     document.addEventListener('mouseup', () => {
       isDragging = false;
+      scrollbarThumb.classList.remove('h-[6px]', '-mt-[2px]');
     });
 
     // Mouse move event for scrollbar thumb
