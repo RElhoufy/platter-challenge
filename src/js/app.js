@@ -114,4 +114,23 @@ document.addEventListener('DOMContentLoaded', async function () {
       productCardsWrapper.style.height = `${productCardsWrapper.scrollHeight}px`;
     });
   });
+
+  // Handle show more button and scrollbar on resize
+  window.addEventListener('resize', () => {
+    const isDesktopNow = window.matchMedia('(min-width: 768px)').matches;
+    const currentProducts = productCardsWrapper.querySelectorAll('.product-card').length;
+
+    if (isDesktopNow && products.length > 4) {
+      scrollbarContainer.classList.remove('md:hidden');
+      scrollbarContainer.classList.add('md:block');
+      showMoreButton.classList.add('hidden');
+    } else if (!isDesktopNow && products.length > 4) {
+      scrollbarContainer.classList.add('md:hidden');
+      scrollbarContainer.classList.remove('md:block');
+
+      if (currentProducts < products.length) {
+        showMoreButton.classList.remove('hidden');
+      }
+    }
+  });
 });
