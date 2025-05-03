@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" class="md:touch-none">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Platter Challenge</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700&family=Source+Serif+Pro:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS CDN with config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="src/config/tailwind.config.js"></script>
+  </head>
+  <body class="overflow-x-hidden md:touch-none">
+    <div class="mx-6 my-4 md:mx-32 md:mt-20 md:mb-[100px] w-auto max-w-[1664px]">
+      <div class="flex justify-center md:justify-between items-center mb-6">
+        <h1 class="text-center md:text-left text-[28px] md:text-[40px] font-serif font-bold md:font-black tracking-[-0.01em] text-neutral-black">
+          Best Sellers
+        </h1>
+        <a
+          href="#"
+          class="hidden md:flex items-end gap-x-2 font-poppins font-semibold text-sm tracking-[-0.03em] text-[#5C553A] capitalize hover:underline"
+        >
+          Shop all best sellers
+
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M3.33334 10H16.6667M16.6667 10L11.6667 5M16.6667 10L11.6667 15"
+              stroke="#5C553A"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+      <div id="product-grid" class="relative md:touch-none">
+        <div
+          id="product-cards-container"
+          class="md:absolute grid grid-cols-2 gap-x-[11px] gap-y-3 md:flex md:flex-nowrap md:gap-6 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:touch-none"
+        >
+          <div class="product-card-skeleton">
+            <div class="product-card__image-skeleton"></div>
+            <div class="product-card__title-skeleton"></div>
+            <div class="product-card__reviews-skeleton"></div>
+            <div class="product-card__price-skeleton"></div>
+          </div>
+          <div class="product-card-skeleton">
+            <div class="product-card__image-skeleton"></div>
+            <div class="product-card__title-skeleton"></div>
+            <div class="product-card__reviews-skeleton"></div>
+            <div class="product-card__price-skeleton"></div>
+          </div>
+          <div class="product-card-skeleton">
+            <div class="product-card__image-skeleton"></div>
+            <div class="product-card__title-skeleton"></div>
+            <div class="product-card__reviews-skeleton"></div>
+            <div class="product-card__price-skeleton"></div>
+          </div>
+          <div class="product-card-skeleton">
+            <div class="product-card__image-skeleton"></div>
+            <div class="product-card__title-skeleton"></div>
+            <div class="product-card__reviews-skeleton"></div>
+            <div class="product-card__price-skeleton"></div>
+          </div>
+        </div>
+        <button
+          class="w-full py-4 mt-3 text-center font-poppins font-semibold leading-[140%] text-white bg-black rounded-[100px] hidden md:hidden"
+          id="show-more-button"
+        >
+          Show More
+        </button>
+        <div id="scrollbar-container" class="pt-[513px] hidden md:hidden">
+          <div id="scrollbar-track" class="h-1 w-full bg-[#DDD6D7] relative">
+            <div
+              id="scrollbar-thumb"
+              class="absolute md:w-[240px] lg:w-[320px] xl:w-[480px] h-1 hover:h-1.5 hover:-mt-0.5 bg-neutral-black rounded-full cursor-pointer"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="src/js/app.js"></script>
+  </body>
+</html>

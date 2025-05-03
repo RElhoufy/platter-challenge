@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Editor settings
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+.prettierrc 
