@@ -16,6 +16,8 @@ function initializeScrollbar(productCardsWrapper, productGrid, scrollbarContaine
     const thumbPositionOffsetLeft = parseFloat(scrollbarThumb.style.left) || 0;
     const scrollPercentage = (thumbPositionOffsetLeft / maxThumbPosition) * 100;
 
+    if (scrollPercentage > 100) return;
+
     productCardsWrapper.style.left = `-${Math.round(
       (scrollPercentage / 100) * totalScrollableWidth
     )}px`;
@@ -27,6 +29,8 @@ function initializeScrollbar(productCardsWrapper, productGrid, scrollbarContaine
     const totalScrollableWidth = productCardsWrapper.scrollWidth - productGrid.clientWidth;
     const currentScrollPosition = Math.abs(parseFloat(productCardsWrapper.style.left) || 0);
     const scrollPercentage = (currentScrollPosition / totalScrollableWidth) * 100;
+
+    if (scrollPercentage > 100) return;
 
     const thumbPosition = (scrollPercentage / 100) * maxThumbPosition;
     scrollbarThumb.style.left = `${Math.round(thumbPosition)}px`;

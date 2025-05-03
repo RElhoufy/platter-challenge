@@ -2,7 +2,7 @@ import { generateStarRating } from './utils/star-rating.js';
 
 export function createProductCard(product) {
   return `
-    <div class="product-card md:min-w-[355px] md:max-w-[355px]">
+    <div class="product-card md:w-[355px] md:max-h-[467px]">
       <!-- Image Container -->
       <div class="product-card__image relative aspect-square overflow-hidden rounded-[10px] group">
         <img 
