@@ -174,7 +174,7 @@ class PlatterCarousel extends HTMLElement {
         this.updateScollbarVisibility();
       });
       this.showMoreButton.classList.add('hidden');
-    } else if (!isDesktopNow && currentProducts > MAX_INITIAL_PRODUCTS_MOBILE) {
+    } else if (!isDesktopNow && this.products.length > MAX_INITIAL_PRODUCTS_MOBILE) {
       this.scrollbarContainer.classList.add('md:hidden');
       this.scrollbarContainer.classList.remove('md:block');
 
