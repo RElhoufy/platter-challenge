@@ -9,8 +9,6 @@ tailwind.config = {
       colors: {
         'neutral-black': '#231F20',
         'custom-black': '#1C1D1D',
-        'custom-grey': '#707070',
-        'neutral-grey': '#DDD6D7',
       },
     },
   },

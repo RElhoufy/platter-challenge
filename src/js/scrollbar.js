@@ -18,9 +18,7 @@ function initializeScrollbar(productCardsWrapper, productGrid, scrollbarContaine
 
     if (scrollPercentage > 100) return;
 
-    productCardsWrapper.style.left = `-${Math.round(
-      (scrollPercentage / 100) * totalScrollableWidth
-    )}px`;
+    productCardsWrapper.style.left = `-${Math.round((scrollPercentage / 100) * totalScrollableWidth)}px`;
   }
 
   // Update scrollbar thumb position based on grid scroll
@@ -40,7 +38,7 @@ function initializeScrollbar(productCardsWrapper, productGrid, scrollbarContaine
   function handleStart(e) {
     e.preventDefault();
     isDragging = true;
-    scrollbarThumb.classList.add('h-[6px]', '-mt-[2px]');
+    scrollbarThumb.classList.add('h-1.5', '-mt-0.5');
 
     if (e.type.includes('touch')) {
       const touch = e.touches[0];
@@ -54,7 +52,7 @@ function initializeScrollbar(productCardsWrapper, productGrid, scrollbarContaine
   // Stop dragging
   function handleEnd() {
     isDragging = false;
-    scrollbarThumb.classList.remove('h-[6px]', '-mt-[2px]');
+    scrollbarThumb.classList.remove('h-1.5', '-mt-0.5');
   }
 
   // Handle movement
