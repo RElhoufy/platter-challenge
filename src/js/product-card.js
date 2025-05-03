@@ -3,7 +3,6 @@ import { generateStarRating } from './utils/star-rating.js';
 export function createProductCard(product) {
   return `
     <div class="product-card md:w-[355px] md:max-h-[467px]">
-      <!-- Image Container -->
       <div class="product-card__image relative aspect-square overflow-hidden rounded-[10px] group">
         <img 
           src="${product.mainImage}"
@@ -14,6 +13,7 @@ export function createProductCard(product) {
           src="${product.secondaryImage}"
           alt="${product.title} - Alternative view"
           class="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 opacity-0 md:group-hover:opacity-100"
+          loading="lazy"
         />
         
         <div class="product-card__badge 
