@@ -1,8 +1,28 @@
-# My App
+# Platter Challenge
 
-A simple web application using vanilla JavaScript and Tailwind CSS.
+To view the end result please visit the following URL https://relhoufy.github.io/platter-challenge/
 
-## Development Setup
+# Products Data
+
+The product data can be found in `src/data/products.json`.
+
+Each product has the following properties:
+
+- `id`: Unique identifier (number)
+- `title`: Product name
+- `price`: Product price (number)
+- `mainImage`: Primary product image path
+- `secondaryImage`: Secondary product image path
+- `numberOfReviews`: Total number of reviews (number)
+- `starRating`: Product rating (number, 0-5)
+- `badge`: Primary badge text
+- `secondaryBadge`: Optional promotional badge text
+
+## Misc information
+
+---
+
+##### Development Setup
 
 1. Clone the repository
 2. Install dependencies:
@@ -14,28 +34,7 @@ A simple web application using vanilla JavaScript and Tailwind CSS.
    npm run dev
    ```
 
-## Recommended VS Code Extensions
-
-For the best development experience, install these VS Code extensions:
-
-- Prettier - Code formatter
-
-### Code Formatting
-
-This project uses Prettier for code formatting. After installing the Prettier extension, you can:
-
-1. Create your own `.prettierrc` file in the root directory to customize formatting rules
-2. Configure VS Code settings in `.vscode/settings.json` to enable format on save
-
-## Technologies Used
-
-- Vanilla JavaScript
-- Tailwind CSS (via CDN)
-- Live Server for development
-
-## Dependencies
-
-### Development Dependencies
+##### Development Dependencies
 
 - `live-server` (^1.2.2): A simple development server with live reload capability
   - Used for local development
