@@ -12,7 +12,14 @@ export function initializeShowMore(products, showMoreButton) {
     const remainingProductCards = remainingProducts.map(createProductCard);
     const currentHeight = productCardsWrapper.scrollHeight;
 
-    productCardsWrapper.innerHTML += remainingProductCards.join('');
+    // Create a temporary container for the new cards
+    const tempContainer = document.createElement('div');
+    tempContainer.innerHTML = remainingProductCards.join('');
+
+    // Append each new card individually
+    while (tempContainer.firstChild) {
+      productCardsWrapper.appendChild(tempContainer.firstChild);
+    }
 
     // Set initial height and enable transition
     productCardsWrapper.style.height = `${currentHeight}px`;
