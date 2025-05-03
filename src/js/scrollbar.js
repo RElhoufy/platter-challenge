@@ -32,42 +32,60 @@ function initializeScrollbar(productCardsWrapper, productGrid, scrollbarContaine
     scrollbarThumb.style.left = `${Math.round(thumbPosition)}px`;
   }
 
-  // User presses finger down on mouse click
-  function handleMouseDown(e) {
-    console.log('handleMouseDown');
+  // Start dragging
+  function handleStart(e) {
+    e.preventDefault();
     isDragging = true;
     scrollbarThumb.classList.add('h-[6px]', '-mt-[2px]');
-    startX = e.offsetX; // X position of mouse from edge of scrollbar thumb
+
+    if (e.type.includes('touch')) {
+      const touch = e.touches[0];
+      const rect = scrollbarThumb.getBoundingClientRect();
+      startX = touch.clientX - rect.left;
+    } else {
+      startX = e.offsetX;
+    }
   }
 
-  // User releases finger from mouse click
-  function handleMouseUp() {
+  // Stop dragging
+  function handleEnd() {
     isDragging = false;
     scrollbarThumb.classList.remove('h-[6px]', '-mt-[2px]');
   }
 
-  // User is dragging mouse
-  function handleMouseMove(e) {
+  // Handle movement
+  function handleMove(e) {
     if (!isDragging) return;
+    e.preventDefault(); // Prevent scrolling the page while dragging the scrollbar
+
     const maxThumbPosition = scrollbarTrack.clientWidth - scrollbarThumb.clientWidth;
-    const x = e.pageX - scrollbarTrack.getBoundingClientRect().left; // How much the mouse has travelled starting from the left edge of the scrollbar
+    const x = e.type.includes('touch')
+      ? e.touches[0].clientX - scrollbarTrack.getBoundingClientRect().left
+      : e.pageX - scrollbarTrack.getBoundingClientRect().left;
+
     const thumbPositionOffsetLeft = Math.max(0, Math.min(x - startX, maxThumbPosition));
     scrollbarThumb.style.left = `${thumbPositionOffsetLeft}px`;
     updateGridScroll();
   }
 
   // Remove any existing event listeners
-  scrollbarThumb.removeEventListener('mousedown', handleMouseDown);
-  document.removeEventListener('mouseup', handleMouseUp);
-  document.removeEventListener('mousemove', handleMouseMove);
+  scrollbarThumb.removeEventListener('mousedown', handleStart);
+  document.removeEventListener('mouseup', handleEnd);
+  document.removeEventListener('mousemove', handleMove);
+  scrollbarThumb.removeEventListener('touchstart', handleStart);
+  document.removeEventListener('touchend', handleEnd);
+  document.removeEventListener('touchmove', handleMove);
 
   // Add new event listeners
-  scrollbarThumb.addEventListener('mousedown', handleMouseDown);
-  document.addEventListener('mouseup', handleMouseUp);
-  document.addEventListener('mousemove', handleMouseMove);
+  scrollbarThumb.addEventListener('mousedown', handleStart);
+  document.addEventListener('mouseup', handleEnd);
+  document.addEventListener('mousemove', handleMove);
+  scrollbarThumb.addEventListener('touchstart', handleStart);
+  document.addEventListener('touchend', handleEnd);
+  document.addEventListener('touchmove', handleMove);
 
-  updateScrollThumbPosition();
   updateGridScroll();
+  updateScrollThumbPosition();
 }
 
 export function updateScrollbarVisibility(productCardsWrapper, productGrid, scrollbarContainer) {
