@@ -1,0 +1,78 @@
+<script src="{{ 'platter-carousel.js' | asset_url }}" defer="defer"></script>
+
+{% if section.blocks.size > 5 %}
+  <platter-carousel>
+    <div class="mx-6 my-4 md:mx-32 md:mt-20 md:mb-[100px] w-auto max-w-[1664px]">
+      {% render 'platter-carousel-header' %}
+
+      <div id="product-grid" class="relative md:touch-none">
+        <div
+          id="product-cards-container"
+          class="md:absolute grid grid-cols-2 gap-x-[11px] gap-y-3 md:flex md:flex-nowrap md:gap-6 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:touch-none"
+        ></div>
+
+        {% render 'platter-carousel-controls' %}
+      </div>
+    </div>
+  </platter-carousel>
+
+  <div class="hidden" id="platter-carousel-product-cards">
+    {% for block in section.blocks %}
+      {% render 'product-card', product: block.settings.product %}
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "platter-carousel",
+  "class": "platter-carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Carousel Title"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Carousel CTA text"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Carousel CTA link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product",
+          "info": "This section is only visible if there are more than 5 products in the carousel."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "platter-carousel",
+      "blocks": [
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

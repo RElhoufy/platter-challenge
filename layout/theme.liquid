@@ -6,6 +6,44 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700&family=Source+Serif+Pro:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <!-- Tailwind CSS CDN with config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                poppins: ['Poppins', 'sans-serif'],
+                bebas: ['Bebas Neue', 'sans-serif'],
+                serif: ['Source Serif Pro', 'serif'],
+              },
+              colors: {
+                'neutral-black': '#231F20',
+                'custom-black': '#1C1D1D',
+              },
+              fontSize: {
+                sm: '14px',
+                base: '16px',
+                lg: '18px',
+                xl: '20px',
+                '2xl': '24px',
+                '3xl': '30px',
+                '4xl': '36px',
+                '5xl': '48px',
+              },
+            },
+          },
+        };
+      });
+    </script>
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
@@ -230,11 +268,12 @@
 
       html {
         box-sizing: border-box;
-        font-size: calc(var(--font-body-scale) * 62.5%);
         height: 100%;
+        touch-action: none;
       }
 
       body {
+        touch-action: none;
         display: grid;
         grid-template-rows: auto auto 1fr auto;
         grid-template-columns: 100%;
@@ -298,7 +337,7 @@
     </script>
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="overflow-x-hidden gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
