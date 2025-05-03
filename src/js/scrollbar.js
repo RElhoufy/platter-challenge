@@ -72,14 +72,6 @@ function initializeScrollbar(productCardsWrapper, productGrid, scrollbarContaine
     updateGridScroll();
   }
 
-  // Remove any existing event listeners
-  scrollbarThumb.removeEventListener('mousedown', handleStart);
-  document.removeEventListener('mouseup', handleEnd);
-  document.removeEventListener('mousemove', handleMove);
-  scrollbarThumb.removeEventListener('touchstart', handleStart);
-  document.removeEventListener('touchend', handleEnd);
-  document.removeEventListener('touchmove', handleMove);
-
   // Add new event listeners
   scrollbarThumb.addEventListener('mousedown', handleStart);
   document.addEventListener('mouseup', handleEnd);
