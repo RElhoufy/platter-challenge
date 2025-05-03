@@ -1,23 +1,10 @@
+import { productsPromise } from './services/product-service.js';
 import { createProductCard } from './product-card.js';
 import { initializeShowMore } from './show-more.js';
 import { updateScrollbarVisibility } from './scrollbar.js';
 import { sanitizeElement } from './utils/sanitize-element.js';
 
-let productsPromise = (async function fetchProducts() {
-  try {
-    const response = await fetch('src/data/products.json');
-    if (!response.ok) {
-      throw new Error('Failed to fetch products');
-    }
-    const data = await response.json();
-    return data.products;
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    return [];
-  }
-})();
-
-document.addEventListener('DOMContentLoaded', async function () {
+(async function () {
   const isDesktop = window.matchMedia('(min-width: 768px)').matches;
   const MAX_INITIAL_PRODUCTS_MOBILE = 4;
 
@@ -26,6 +13,11 @@ document.addEventListener('DOMContentLoaded', async function () {
   const productCardsWrapper = document.getElementById('product-cards-container');
   let showMoreButton = document.getElementById('show-more-button');
   let scrollbarContainer = document.getElementById('scrollbar-container');
+
+  if (!products) {
+    console.error('No products found');
+    return;
+  }
 
   // Show initial products
   const initialProducts = isDesktop ? products : products.slice(0, MAX_INITIAL_PRODUCTS_MOBILE);
@@ -64,4 +56,4 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
     }
   });
-});
+})();
