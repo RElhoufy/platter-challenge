@@ -5,7 +5,7 @@ import { sanitizeElement } from './utils/sanitize-element.js';
 
 let productsPromise = (async function fetchProducts() {
   try {
-    const response = await fetch('data/products.json');
+    const response = await fetch('src/data/products.json');
     if (!response.ok) {
       throw new Error('Failed to fetch products');
     }

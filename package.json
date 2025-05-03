@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple web app with hot reloading",
   "scripts": {
-    "dev": "live-server src --port=3000 --no-browser"
+    "dev": "live-server --port=3000 --no-browser"
   },
   "devDependencies": {
     "live-server": "^1.2.2"
